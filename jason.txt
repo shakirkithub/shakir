@@ -1,0 +1,92 @@
+# 4. IAM Read-Only Access
+#eh policy user ko IAM users, roles, policies, etc. sirf dekhne deti hai — change karne ki permission nahi.
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "iam:Get*",
+        "iam:List*"
+      ],
+      "Resource": "*"
+    }
+  ]
+}
+
+
+
+
+#ful acess to a Specific S3 Folder (Prefix)
+#yeh policy sirf ek S3 bucket ke specific folder (prefix) tak full access deti hai.
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": "s3:*",
+      "Resource": [
+        "arn:aws:s3:::my-bucket-name/specific-folder/*"
+      ]
+    }
+  ]
+}
+
+
+
+
+#Lambda Invoke-Only
+#Yeh policy user ko existing Lambda function ko sirf run karne (invoke) ki permission deti hai.
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": "lambda:InvokeFunction",
+      "Resource": "arn:aws:lambda:us-east-1:123456789012:function:my-function-name"
+    }
+  ]
+}
+
+
+
+
+
+#EC2 Start/Stop Access (Limited Control)
+#Yeh policy user ko sirf EC2 instance start aur stop karne deti hai, lekin terminate ya create nahi.
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "ec2:StartInstances",
+        "ec2:StopInstances"
+      ],
+      "Resource": "*"
+    }
+  ]
+}
+
+
+
+
+
+#S3 Read-Only Access
+#Yeh policy user ko sirf S3 bucket se files dekhne aur download karne deti hai.
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "s3:GetObject",
+        "s3:ListBucket"
+      ],
+      "Resource": [
+        "arn:aws:s3:::my-bucket-name",
+        "arn:aws:s3:::my-bucket-name/*"
+      ]
+    }
+  ]
+}
